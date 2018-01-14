@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    >
+    
+    <ListView
+        android:id="@+id/myListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+
+    <TextView
+        android:text="No data available"
+        android:id="@+id/emptyView"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--<TableRow>-->
+
+        <!--<Button />-->
+        <!--<Button />-->
+        <!--<Button />-->
+    <!--</TableRow>-->
+
+    <!--<TableRow>-->
+
+        <!--<Button />-->
+        <!--<Button />-->
+        <!--<Button />-->
+    <!--</TableRow>-->
+
+    <!--<TableRow>-->
+
+        <!--<Button />-->
+        <!--<Button />-->
+        <!--<Button />-->
+    <!--</TableRow>-->
+    <!--<ImageView-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="#f8bbd0"/>-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="#448aff"/>-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="#c2185b"/>-->
+
+</LinearLayout>
