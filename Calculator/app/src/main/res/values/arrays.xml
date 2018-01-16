@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <stiring-array name="operators">
+        <item>@string/plus</item>
+        <item>@string/minus</item>
+        <item>@string/multiply</item>
+        <item>@string/division</item>
+    </stiring-array>
+</resources>
