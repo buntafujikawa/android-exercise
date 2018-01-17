@@ -1,5 +1,7 @@
 package com.example.buntafujikawa.calculator
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity(), TextWatcher, View.OnClickListener {
     private var operatorSelector: Spinner? = null
     private var calcResult: TextView? = null
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -41,22 +43,66 @@ class MainActivity : AppCompatActivity(), TextWatcher, View.OnClickListener {
         calcResult = findViewById(R.id.calcResult) as? TextView
     }
 
+    companion object {
+        val REQUEST_ANOTHER_CALC_1: Int = 1
+        val REQUEST_ANOTHER_CALC_2: Int = 2
+    }
+
     override fun onClick(v: View) {
         var id: Int = v.id
 
         when (id) {
             R.id.calcButton1 -> {
                 // 上の計算ボタン
+                var intent1: Intent = Intent(this, AnotherCalcActivity::class.java)
+                // 別のアクティビティの起動 ForResultで遷移先アクティビティから結果を受け取る
+                startActivityForResult(intent1, REQUEST_ANOTHER_CALC_1)
             }
 
             R.id.calcButton2 -> {
                 // 下の計算ボタン
+                var intent2: Intent = Intent(this, AnotherCalcActivity::class.java)
+                startActivityForResult(intent2, REQUEST_ANOTHER_CALC_2)
             }
 
             R.id.nextButton -> {
                 // 続けて計算するボタン
+                if (checkEditTextInput()) {
+                    var result: Int = calc()
+
+                    numberInput1?.setText(result)
+
+                    refreshResult()
+                }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 戻るボタンで戻ってきた場合には何もしない
+        if (resultCode != Activity.RESULT_OK) return
+
+        // 怪しいかも
+        var resultBundle: Bundle = data?.getExtras()!!
+
+        // 結果に所定のキーが含まれていない場合
+        if (!resultBundle.containsKey("result")) return
+
+        var result: Int = resultBundle.getInt("result")
+
+        when (requestCode) {
+            REQUEST_ANOTHER_CALC_1 -> {
+                numberInput1?.setText(result)
+            }
+
+            REQUEST_ANOTHER_CALC_2 -> {
+                numberInput2?.setText(result)
+            }
+        }
+
+        refreshResult()
     }
 
     private fun checkEditTextInput(): Boolean {
@@ -94,20 +140,21 @@ class MainActivity : AppCompatActivity(), TextWatcher, View.OnClickListener {
 
         when (operator) {
             0 -> {
-                number1 + number2
+                return number1 + number2
             }
 
             1 -> {
-                number1 - number2
+                return number1 - number2
             }
 
             2 -> {
-                number1 * number2
+                return number1 * number2
             }
 
             2 -> {
-                number1 / number2
+                return number1 / number2
             }
+
             else -> throw RuntimeException()
         }
     }
