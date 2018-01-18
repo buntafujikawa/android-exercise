@@ -6,6 +6,7 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
+import android.util.AttributeSet
 import android.widget.EditText
 import org.w3c.dom.Attr
 import java.nio.file.Path
@@ -15,7 +16,7 @@ import java.util.jar.Attributes
  * Created by bunta.fujikawa on 2018/01/18.
  */
 
-public class MemoEditText(context: Context, attrs: Attributes, defStyleAttr: Int) : EditText() {
+public class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : EditText(context, attrs, defStyleAttr) {
 
     companion object {
         private val SOLID: Int = 1

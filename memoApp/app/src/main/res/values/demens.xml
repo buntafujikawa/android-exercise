@@ -8,9 +8,4 @@
     <dimen name="settings.text.size.large">36sp</dimen>
     <dimen name="settings.text.size.medium">18sp</dimen>
     <dimen name="settings.text.size.small">9sp</dimen>
-
-    <dimen name="text_rule_interval_on">0x7f08006b</dimen>
-    <dimen name="text_rule_interval_off">0x7f08006a</dimen>
-    <dimen name="text_rule_width_bold">0x7f08006c</dimen>
-    <dimen name="text_rule_width_normal">0x7f08006d</dimen>
 </resources>
