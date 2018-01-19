@@ -12,9 +12,8 @@ import android.widget.EditText
 import java.nio.file.Path
 
 /**
- * Created by bunta.fujikawa on 2018/01/18.
+ * 罫線を表示するEditText
  */
-
 class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : EditText(context, attrs, defStyleAttr) {
 
     companion object {
