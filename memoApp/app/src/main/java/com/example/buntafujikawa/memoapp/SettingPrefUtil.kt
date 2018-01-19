@@ -6,9 +6,8 @@ import android.graphics.Typeface
 import java.util.*
 
 /**
- * Created by bunta.fujikawa on 2018/01/19.
+ * SharedPreferencesと、設定値がほしいクラスの橋渡しをする
  */
-
 class SettingPrefUtil {
     companion object {
         // 保存先
