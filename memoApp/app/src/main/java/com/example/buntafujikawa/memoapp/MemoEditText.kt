@@ -3,20 +3,19 @@ package com.example.buntafujikawa.memoapp
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.widget.EditText
-import org.w3c.dom.Attr
 import java.nio.file.Path
-import java.util.jar.Attributes
 
 /**
  * Created by bunta.fujikawa on 2018/01/18.
  */
 
-public class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : EditText(context, attrs, defStyleAttr) {
+class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : EditText(context, attrs, defStyleAttr) {
 
     companion object {
         private val SOLID: Int = 1
@@ -34,13 +33,16 @@ public class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: I
     // 表示可能な行数
     private var mDisplayLineCount: Int = 0
 
-    private lateinit var mPath: Path
-    private lateinit var mPaint: Paint
+    // TODO ここら辺も確認
+//    private lateinit var mPath: Path
+//    private lateinit var mPaint: Paint
+    private var mPath: Path? = null
+    private var mPaint: Paint? = null
 
     init {
-//        mPath = Path()
-//        mPaint = Paint()
-//        mPaint.style(Paint.Style.STROKE)
+        mPath = Path()
+        mPaint = Paint()
+        mPaint.style(Paint.Style.STROKE)
 
         if (attrs != null && !isInEditMode) {
             var lineEffectBit: Int
@@ -78,5 +80,33 @@ public class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: I
 
             mPaint.setColor(lineColor)
         }
+    }
+
+    override protected fun onDraw(canvas: Canvas?) {
+        var paddingTop: Int = extendedPaddingTop
+        var scrollY :Int = scrollY
+        var firstVisibleLine :Int = layout.getLineForVertical(scrollY)
+        var lastVisibleLine :Int = firstVisibleLine + mDisplayLineCount
+
+        // TODO ここできてないので確認しましょう P167
+        mPath.reset()
+
+        for (firstVisibleLine in firstVisibleLine..lastVisibleLine) {
+            mPath.moveTo()
+        }
+
+        canvas.drawPath(mPath, mPaint)
+
+        super.onDraw(canvas)
+    }
+
+    // Viewの横幅と高さを決定する際に呼ばれるメソッド
+    override public fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        mMeasureWidth = measuredWidth
+        var measuredHeight: Int = measuredHeight
+        mLineHeight = lineHeight
+        mDisplayLineCount = measuredHeight / mLineHeight
     }
 }
