@@ -11,12 +11,12 @@ class MemoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
     companion object {
         private val DB_NAME: String = "memo.db"
         private val DB_VERSION: Int = 1
-        private val TABLE_NAME: String = "memo"
-        private val _ID: String = "_id"
-        private val TITLE: String = "title"
-        private val DATA: String = "_data"
-        private val DATE_ADDED: String = "date_added"
-        private val DATE_MODIFIED: String = "date_modified"
+        val TABLE_NAME: String = "memo"
+        val _ID: String = "_id"
+        val TITLE: String = "title"
+        val DATA: String = "_data"
+        val DATE_ADDED: String = "date_added"
+        val DATE_MODIFIED: String = "date_modified"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
