@@ -7,9 +7,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.widget.EditText
-import java.nio.file.Path
 
 /**
  * 罫線を表示するEditText
@@ -24,7 +24,7 @@ class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : E
     }
 
     // viewの横幅
-    private var mMeasureWidth: Int = 0
+    private var mMeasuredWidth: Int = 0
 
     // 1行の高さ
     private var mLineHeight: Int = 0
@@ -32,16 +32,13 @@ class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : E
     // 表示可能な行数
     private var mDisplayLineCount: Int = 0
 
-    // TODO ここら辺も確認
-//    private lateinit var mPath: Path
-//    private lateinit var mPaint: Paint
     private var mPath: Path? = null
     private var mPaint: Paint? = null
 
-    init {
+    private fun init(context: Context, attrs: AttributeSet?) {
         mPath = Path()
         mPaint = Paint()
-        mPaint.style(Paint.Style.STROKE)
+        mPaint!!.style = Paint.Style.STROKE
 
         if (attrs != null && !isInEditMode) {
             var lineEffectBit: Int
@@ -64,7 +61,7 @@ class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : E
                     resources.getDimension(R.dimen.text_rule_interval_on),
                     resources.getDimension(R.dimen.text_rule_interval_off)),
                     0f)
-                mPaint.setPathEffect(effect)
+                mPaint!!.setPathEffect(effect)
             }
 
             var strokeWidth: Float
@@ -75,35 +72,35 @@ class MemoEditText(context: Context, attrs: AttributeSet, defStyleAttr: Int) : E
                 strokeWidth = resources.getDimension(R.dimen.text_rule_width_normal)
             }
 
-            mPaint.setStrokeWidth(strokeWidth)
+            mPaint!!.setStrokeWidth(strokeWidth)
 
-            mPaint.setColor(lineColor)
+            mPaint!!.setColor(lineColor)
         }
     }
 
-    override protected fun onDraw(canvas: Canvas?) {
+    override protected fun onDraw(canvas: Canvas) {
         var paddingTop: Int = extendedPaddingTop
-        var scrollY :Int = scrollY
-        var firstVisibleLine :Int = layout.getLineForVertical(scrollY)
-        var lastVisibleLine :Int = firstVisibleLine + mDisplayLineCount
+        var scrollY: Int = scrollY
+        var firstVisibleLine: Int = layout.getLineForVertical(scrollY)
+        var lastVisibleLine: Int = firstVisibleLine + mDisplayLineCount
 
-        // TODO ここできてないので確認しましょう P167
-        mPath.reset()
+        mPath!!.reset()
 
-        for (firstVisibleLine in firstVisibleLine..lastVisibleLine) {
-            mPath.moveTo()
+        for (i in firstVisibleLine..lastVisibleLine) {
+            mPath!!.moveTo(0f, (i * mLineHeight + paddingTop).toFloat())
+            mPath!!.lineTo(mMeasuredWidth.toFloat(), (i * mLineHeight + paddingTop).toFloat())
         }
 
-        canvas.drawPath(mPath, mPaint)
+        canvas.drawPath(mPath!!, mPaint!!)
 
         super.onDraw(canvas)
     }
 
     // Viewの横幅と高さを決定する際に呼ばれるメソッド
-    override public fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        mMeasureWidth = measuredWidth
+        mMeasuredWidth = measuredWidth
         var measuredHeight: Int = measuredHeight
         mLineHeight = lineHeight
         mDisplayLineCount = measuredHeight / mLineHeight

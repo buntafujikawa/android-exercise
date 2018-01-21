@@ -27,7 +27,7 @@ class MemoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
                 DATA + " TEXT, " +
                 DATE_ADDED + " INTEGER NOT NULL, " +
                 DATE_MODIFIED + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL " +
-                ")";
+                ")"
         db.execSQL(createTable)
     }
 

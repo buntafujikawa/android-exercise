@@ -72,13 +72,13 @@ object MemoRepository {
         var builder: StringBuilder = StringBuilder()
 
         try {
-            // ??
-            var inputStream: InputStream? = context.applicationContext.openInputStream(uri)
+            var inputStream: InputStream? = context.contentResolver.openInputStream(uri)
             inputStream?.let {
                 reader = BufferedReader(InputStreamReader(inputStream))
 
-                var line: String
-                while ((line = reader.readLine()) != null) {
+                var line: String?
+                line = reader?.readLine()
+                while (line != null) {
                     builder.append(line)
                     builder.append("\n")
                 }
@@ -95,7 +95,7 @@ object MemoRepository {
         } finally {
             reader?.let {
                 try {
-                    reader.close()
+                    reader!!.close()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

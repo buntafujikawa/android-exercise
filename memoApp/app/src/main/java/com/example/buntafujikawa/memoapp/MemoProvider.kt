@@ -13,14 +13,13 @@ import android.os.Binder
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.text.TextUtils
-import java.security.Security
 import java.util.*
 
 /**
  * メモ管理用のContentProvider
  */
 
-class MemoProvider : ContentProvider {
+class MemoProvider : ContentProvider() {
     companion object {
         private val AUTHORITY: String = "com.example.buntafujikawa.memoapp.memo"
 
@@ -44,7 +43,6 @@ class MemoProvider : ContentProvider {
         // URIとの一致をチェックするUriMatcher
         private var sMatcher: UriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
-        // static{}と同じっぽい todo 明日kotlin in actionで確認をする
         init {
             // idが指定されていない場合
             sMatcher.addURI(AUTHORITY, CONTENT_PATH, URI_MATCH_MEMO_LIST)
@@ -62,7 +60,7 @@ class MemoProvider : ContentProvider {
         return true
     }
 
-    override fun query(uri: Uri, projection: Array<String>, selection: String, selectionArgs: Array<String>, sortOrder: String): Cursor {
+    override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         var match: Int = sMatcher.match(uri)
         var cursor: Cursor
 
@@ -78,20 +76,22 @@ class MemoProvider : ContentProvider {
                 var id: String = uri.lastPathSegment
 
                 cursor = mDatabase!!.query(MemoDBHelper.TABLE_NAME,
-                    projection, MemoDBHelper._ID + "=" + id + if ((TextUtils.isEmpty(selection))) "" else " AND ($selection)",
+                    projection, MemoDBHelper._ID + "=" + id + if ((TextUtils.isEmpty(selection))) ""
+                else
+                    " AND ($selection)",
                     selectionArgs, null, null, sortOrder)
             }
 
             else -> {
-                IllegalArgumentException("invalid uri:" + uri)
+                throw IllegalArgumentException("invalid uri:" + uri)
             }
         }
 
 
         // 指定したURIへの通知イベントを受信するようにする
-        var context: Context = getContext()
+        var context: Context = context
         context?.let {
-            cursor.setNotificationUri(it.contentResolver, uri)
+            cursor.setNotificationUri(context!!.contentResolver, uri)
         }
 
         return cursor
@@ -113,7 +113,7 @@ class MemoProvider : ContentProvider {
             id >= 0 -> {
                 var newUri: Uri = Uri.withAppendedPath(CONTENT_URI, id.toString())
 
-                var context: Context = getContext()
+                var context: Context = context
                 context?.let {
                     context.contentResolver.notifyChange(newUri, null)
                 }
@@ -144,7 +144,7 @@ class MemoProvider : ContentProvider {
                     MemoDBHelper._ID + "=" + id + if (selection!!.isEmpty()) "" else " AND ($selection)",
                     selectionArgs)
 
-                var context: Context = getContext()
+                var context: Context = context
                 context?.let {
                     context.contentResolver.notifyChange(uri, null)
                 }
@@ -177,7 +177,7 @@ class MemoProvider : ContentProvider {
                     MemoDBHelper._ID + "=" + id + if (selection!!.isEmpty()) "" else " AND ($selection)",
                     selectionArgs)
 
-                var context: Context = getContext()
+                var context: Context = context
                 context?.let {
                     context.contentResolver.notifyChange(uri, null)
                 }
@@ -199,10 +199,7 @@ class MemoProvider : ContentProvider {
 
         if (myPid == callingPid) return true
 
-        var context: Context = getContext()
-
-        // onCreateが呼ばれていない
-        if (context == null) return false
+        var context: Context = context ?: return false
 
         var packageManager: PackageManager = context.packageManager
         var myPackage: String = context.packageName
@@ -234,7 +231,7 @@ class MemoProvider : ContentProvider {
 
     private fun validateInput(values: ContentValues): Boolean {
         // 省略
-        return true;
+        return true
     }
 
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor {
@@ -246,5 +243,15 @@ class MemoProvider : ContentProvider {
         if (match == URI_MATCH_MEMO_ITEM) return openFileHelper(uri, mode)
 
         throw IllegalArgumentException("invalid uri: " + uri)
+    }
+
+    override fun getType(uri: Uri): String? {
+        val match = sMatcher.match(uri)
+
+        return when (match) {
+            URI_MATCH_MEMO_LIST -> MIME_TYPE_MULTIPLE
+            URI_MATCH_MEMO_ITEM -> MIME_TYPE_SINGLE
+            else -> throw IllegalArgumentException("invalid uri: " + uri)
+        }
     }
 }
