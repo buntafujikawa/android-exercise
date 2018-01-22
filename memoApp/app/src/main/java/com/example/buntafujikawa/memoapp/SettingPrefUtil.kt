@@ -37,12 +37,12 @@ class SettingPrefUtil {
         private val TEXT_STYLE_REVERSE: String = "screen.reverse"
 
         // フォントの取得
-        fun getFontSize(context: Context) {
+        fun getFontSize(context: Context): Float {
             var sp: SharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
 
             var storedSize: String = sp.getString(KEY_TEXT_SIZE, TEXT_SIZE_MEDIUM)
 
-            when (storedSize) {
+            return when (storedSize) {
                 TEXT_SIZE_LARGE -> {
                     context.resources.getDimension(R.dimen.settings_text_size_large)
                 }
