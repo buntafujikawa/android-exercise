@@ -11,5 +11,5 @@
     android:gravity="start|top"
     android:hint="@string/memo.hint"
     android:textSize="@dimen/settings.text.size.default"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:padding="@dimen/activity_horizontal_margin"
     android:background="@android:color/transparent" />
