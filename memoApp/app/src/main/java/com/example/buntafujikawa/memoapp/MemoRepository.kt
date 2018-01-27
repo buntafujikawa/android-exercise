@@ -11,7 +11,7 @@ import java.io.*
 import java.util.*
 
 /**
- * メモ管理用のContentProvider
+ * MemoProviderと、Memo情報を必要とするクラスの橋渡しをする
  */
 object MemoRepository {
     // prefix-yyyy-mm-dd-HH-MM-SS.txt
