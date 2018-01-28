@@ -10,16 +10,16 @@ import android.database.sqlite.SQLiteOpenHelper
 class RssDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     object Site {
-        val TABLE_NAME: String = "SITE"
+        const val TABLE_NAME: String = "SITE"
 
-        val ID: String = "id"
-        val TITLE: String = "title"
-        val DESCRIPTION: String = "description"
-        val URL: String = "url"
+        const val ID: String = "id"
+        const val TITLE: String = "title"
+        const val DESCRIPTION: String = "description"
+        const val URL: String = "url"
 
         val PROJECTION: Array<String> = arrayOf(ID, TITLE, DESCRIPTION, URL)
 
-        val CREATE_TABLE_SQL: String = ("CREATE TABLE " + TABLE_NAME + " ("
+        const val CREATE_TABLE_SQL: String = ("CREATE TABLE " + TABLE_NAME + " ("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TITLE + " TEXT NOT NULL, "
             + DESCRIPTION + " TEXT, "
@@ -28,19 +28,19 @@ class RssDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, D
     }
 
     object Link {
-        val TABLE_NAME: String = "LINK"
+        const val TABLE_NAME: String = "LINK"
 
-        val ID: String = "id"
-        val TITLE: String = "title"
-        val DESCRIPTION: String = "description"
-        val PUB_DATE: String = "pubDate"
-        val LINK_URL: String = "linkUrl"
-        val SITE_ID: String = "siteId"
-        val REGISTER_TIME: String = "register_time"
+        const val ID: String = "id"
+        const val TITLE: String = "title"
+        const val DESCRIPTION: String = "description"
+        const val PUB_DATE: String = "pubDate"
+        const val LINK_URL: String = "linkUrl"
+        const val SITE_ID: String = "siteId"
+        const val REGISTER_TIME: String = "register_time"
 
         val PROJECTION: Array<String> = arrayOf(ID, TITLE, DESCRIPTION, PUB_DATE, LINK_URL, SITE_ID, REGISTER_TIME)
 
-        val CREATE_TABLE_SQL: String = ("CREATE TABLE " + TABLE_NAME + " ("
+        const val CREATE_TABLE_SQL: String = ("CREATE TABLE " + TABLE_NAME + " ("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TITLE + " TEXT NOT NULL, "
             + DESCRIPTION + " TEXT, "
@@ -62,7 +62,7 @@ class RssDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, D
 
     companion object {
 
-        private val DB_NAME: String = "RssDB"
-        private val DB_VERSION: Int = 1
+        private const val DB_NAME: String = "RssDB"
+        private const val DB_VERSION: Int = 1
     }
 }
