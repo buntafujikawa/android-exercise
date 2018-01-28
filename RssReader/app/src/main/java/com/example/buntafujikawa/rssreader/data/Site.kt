@@ -1,3 +1,3 @@
 package com.example.buntafujikawa.rssreader.data
 
-data class Site(val id: Long, val title: String, val description: String, val url: String, val linkCount: Long)
+data class Site(var id: Long = 0, var title: String = "", var description: String = "", var url: String = "", var linkCount: Long = 0)

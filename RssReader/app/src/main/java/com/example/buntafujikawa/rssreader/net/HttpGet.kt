@@ -9,7 +9,10 @@ import java.net.URL
 /**
  * 指定したURLからダウンロードする
  */
-class HttpGet(private val url: String, private var status: Int, private var input: InputStream) {
+class HttpGet(private var url: String) {
+
+    private var status: Int? = null
+    private lateinit var input: InputStream
 
     companion object {
         private const val CONNECT_TIMEOUT_MS: Int = 3000
@@ -46,6 +49,6 @@ class HttpGet(private val url: String, private var status: Int, private var inpu
     }
 
     fun getStatus(): Int {
-        return status
+        return status!!
     }
 }
