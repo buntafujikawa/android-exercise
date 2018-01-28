@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 
 import com.example.buntafujikawa.rssreader.R
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.item_link.view.*
 class LinkAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        private val VIEW_TYPE_LINK: Int = 0
+        private const val VIEW_TYPE_LINK: Int = 0
     }
 
     private val mContext: Context = context
@@ -24,9 +23,9 @@ class LinkAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     private val mLinks: MutableList<Link> = mutableListOf()
 
     // リストアイテムがタップされた時のリスナー
-    private lateinit var mListener: AdapterView.OnItemClickListener
+    private lateinit var mListener: OnItemClickListener
 
-    interface OnItemClickListener : AdapterView.OnItemClickListener {
+    interface OnItemClickListener {
         fun onItemClick(link: Link)
     }
 
@@ -75,6 +74,11 @@ class LinkAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             if (link.siteId == feedId) iterator.remove()
         }
 
+        notifyDataSetChanged()
+    }
+
+    fun clearItems() {
+        mLinks.clear()
         notifyDataSetChanged()
     }
 
