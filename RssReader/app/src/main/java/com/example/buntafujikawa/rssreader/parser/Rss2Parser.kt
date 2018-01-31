@@ -2,12 +2,15 @@ package com.example.buntafujikawa.rssreader.parser
 
 import com.example.buntafujikawa.rssreader.data.Link
 import com.example.buntafujikawa.rssreader.data.Site
+
 import org.w3c.dom.Document
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
+
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 import javax.xml.xpath.XPath
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathExpressionException
@@ -37,8 +40,6 @@ class Rss2Parser : FeedParser {
 
             // 日付文字をdateに変換するためのformatter
             val dateFormat: SimpleDateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US)
-
-
 
             val articleCount: Int = items.length
             for (i in 0 until articleCount) {

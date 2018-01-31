@@ -56,9 +56,9 @@ class LinkAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
         val articleHolder: LinkViewHolder = holder
         val link: Link = mLinks[position]
 
-        articleHolder.title.setText(link.title)
-        articleHolder.description.setText(link.description)
-        articleHolder.timeAgo.setText(mContext.getString(R.string.link_publish_date, link.pubDate))
+        articleHolder.title.text = link.title
+        articleHolder.description.text = link.description
+        articleHolder.timeAgo.text = mContext.getString(R.string.link_publish_date, link.pubDate)
     }
 
     fun addItems(links: List<Link>) {
@@ -67,10 +67,10 @@ class LinkAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     fun removeItem(feedId: Long) {
-        var iterator: MutableIterator<Link> = mLinks.iterator()
+        val iterator: MutableIterator<Link> = mLinks.iterator()
 
         while (iterator.hasNext()) {
-            var link: Link = iterator.next()
+            val link: Link = iterator.next()
             if (link.siteId == feedId) iterator.remove()
         }
 

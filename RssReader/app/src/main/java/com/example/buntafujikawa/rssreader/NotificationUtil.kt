@@ -12,7 +12,7 @@ import android.support.v4.app.NotificationCompat
  */
 class NotificationUtil {
     companion object {
-        private const val REQUEST_MAIN_ACTIVITY : Int = 1
+        private const val REQUEST_MAIN_ACTIVITY: Int = 1
 
         fun notifyUpdate(context: Context, newLinks: Int) {
             // 通知タップでアクティビティを開く

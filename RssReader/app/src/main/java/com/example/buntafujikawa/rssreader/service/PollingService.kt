@@ -29,7 +29,7 @@ class PollingService : IntentService(TAG) {
 
         // RSSフィードをダウンロード
         sites.forEach() {
-            var httpGet: HttpGet = HttpGet(it.url)
+            val httpGet: HttpGet = HttpGet(it.url)
             if (!httpGet.get()) return@forEach
 
             val parser: RssParser = RssParser()

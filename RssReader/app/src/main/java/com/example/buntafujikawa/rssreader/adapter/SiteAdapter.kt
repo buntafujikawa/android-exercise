@@ -34,7 +34,7 @@ class SiteAdapter(context: Context) : BaseAdapter() {
         val position: Int = -1
 
         for (i in 0 until size) {
-            var site: Site = mSites[i]
+            val site: Site = mSites[i]
 
             if (siteId == site.id) {
                 mSites.removeAt(position)
@@ -71,8 +71,8 @@ class SiteAdapter(context: Context) : BaseAdapter() {
 
         val site: Site = getItem(position)
 
-        holder.title.setText(site.title)
-        holder.linksCount.setText(mContext.getString(R.string.site_link_count, site.linkCount))
+        holder.title.text = site.title
+        holder.linksCount.text = mContext.getString(R.string.site_link_count, site.linkCount)
 
         return itemView
     }

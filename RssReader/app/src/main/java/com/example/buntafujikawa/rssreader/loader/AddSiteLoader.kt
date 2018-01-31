@@ -2,11 +2,13 @@ package com.example.buntafujikawa.rssreader.loader
 
 import android.content.AsyncTaskLoader
 import android.content.Context
+
 import com.example.buntafujikawa.rssreader.data.Link
 import com.example.buntafujikawa.rssreader.data.Site
 import com.example.buntafujikawa.rssreader.database.RssRepository
 import com.example.buntafujikawa.rssreader.net.HttpGet
 import com.example.buntafujikawa.rssreader.parser.RssParser
+
 import java.io.InputStream
 
 /**

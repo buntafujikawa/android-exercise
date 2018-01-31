@@ -26,14 +26,14 @@ import com.example.buntafujikawa.rssreader.loader.SiteListLoader
 class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterView.OnItemClickListener {
 
     companion object {
-        private val LOADER_LOAD_SITES: Int = 1
-        private val LOADER_ADD_SITE: Int = 2
-        private val LOADER_DELELTE_SITE: Int = 3
+        private const val LOADER_LOAD_SITES: Int = 1
+        private const val LOADER_ADD_SITE: Int = 2
+        private const val LOADER_DELETE_SITE: Int = 3
 
-        private val REQUEST_ADD_SITE: Int = 1
-        private val REQUEST_DELETE_CONFIRM: Int = 2
+        private const val REQUEST_ADD_SITE: Int = 1
+        private const val REQUEST_DELETE_CONFIRM: Int = 2
 
-        private val TAG_DIALOG_FRAGMENT : String = "dialog_fragment"
+        private const val TAG_DIALOG_FRAGMENT: String = "dialog_fragment"
     }
 
     private lateinit var mAdapter: SiteAdapter
@@ -129,11 +129,11 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
                 val args = Bundle()
                 args.putLong("targetId", targetFeedId)
 
-                val loader = loaderManager.getLoader<Int>(LOADER_DELELTE_SITE)
+                val loader = loaderManager.getLoader<Int>(LOADER_DELETE_SITE)
                 if (loader == null) {
-                    loaderManager.initLoader(LOADER_DELELTE_SITE, args, this)
+                    loaderManager.initLoader(LOADER_DELETE_SITE, args, this)
                 } else {
-                    loaderManager.restartLoader(LOADER_DELELTE_SITE, args, this)
+                    loaderManager.restartLoader(LOADER_DELETE_SITE, args, this)
                 }
             }
         }
@@ -157,7 +157,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
                 return loader
             }
 
-            LOADER_DELELTE_SITE -> {
+            LOADER_DELETE_SITE -> {
                 // 登録済みのRSS配信サイトを削除する
                 val siteId = args.getLong("targetId")
                 val loader = DeleteSiteLoader(activity, siteId)
@@ -191,7 +191,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
                 }
             }
 
-            LOADER_DELELTE_SITE -> {
+            LOADER_DELETE_SITE -> {
                 // RSS配信サイトを登録削除した場合、すぐに反映する
                 val affected = data as Int
 

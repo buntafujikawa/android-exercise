@@ -12,7 +12,7 @@ import android.widget.EditText
 /**
  * URL入力用のFragment
  */
-class AddSiteDialogFragment: DialogFragment() {
+class AddSiteDialogFragment : DialogFragment() {
 
     private lateinit var mEditText: EditText
 
@@ -40,7 +40,7 @@ class AddSiteDialogFragment: DialogFragment() {
         mEditText = contentView.findViewById(R.id.URLEditText) as EditText
 
         // ダイアログ生成用のビルダー
-        val builder : AlertDialog.Builder = AlertDialog.Builder(activity)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         builder.setMessage(R.string.add_site)
             .setView(contentView)
             .setPositiveButton(R.string.dialog_button_add, // 「はい」ボタン
@@ -66,6 +66,4 @@ class AddSiteDialogFragment: DialogFragment() {
         // ビルダーからダイアログを生成して返す
         return builder.create()
     }
-
-
 }

@@ -5,6 +5,7 @@ import android.app.job.JobParameters
 import android.app.job.JobService
 import android.os.AsyncTask
 import android.os.Build
+
 import com.example.buntafujikawa.rssreader.data.Site
 import com.example.buntafujikawa.rssreader.database.RssRepository
 import com.example.buntafujikawa.rssreader.net.HttpGet
@@ -19,7 +20,7 @@ class PollingJob : JobService() {
     private lateinit var params: JobParameters
 
     override fun onStartJob(params: JobParameters): Boolean {
-          return false
+        return false
     }
 
     override fun onStopJob(params: JobParameters): Boolean {
@@ -27,7 +28,7 @@ class PollingJob : JobService() {
     }
 
     private inner class DownloadTask : AsyncTask<Unit, Unit, Unit>() {
-        override fun doInBackground(vararg params: Unit) : Unit? {
+        override fun doInBackground(vararg params: Unit): Unit? {
             val sites: List<Site> = RssRepository.getAllSites(this@PollingJob)
 
             var newArticles: Int = 0

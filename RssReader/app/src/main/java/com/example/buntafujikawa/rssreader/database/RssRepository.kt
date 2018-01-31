@@ -53,16 +53,16 @@ object RssRepository {
     fun getAllSites(context: Context): List<Site> {
         val database = RssDBHelper(context).readableDatabase
 
-        val sites = ArrayList<Site>()
+        val sites: ArrayList<Site> = ArrayList<Site>()
 
         val cursor = database.query(RssDBHelper.Site.TABLE_NAME,
             RssDBHelper.Site.PROJECTION, null, null, null, null, null, null)
 
         while (cursor.moveToNext()) {
-            val feedId = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Site.ID))
-            val title = cursor.getString(cursor.getColumnIndex(RssDBHelper.Site.TITLE))
-            val description = cursor.getString(cursor.getColumnIndex(RssDBHelper.Site.DESCRIPTION))
-            val url = cursor.getString(cursor.getColumnIndex(RssDBHelper.Site.URL))
+            val feedId: Long = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Site.ID))
+            val title: String = cursor.getString(cursor.getColumnIndex(RssDBHelper.Site.TITLE))
+            val description: String = cursor.getString(cursor.getColumnIndex(RssDBHelper.Site.DESCRIPTION))
+            val url: String = cursor.getString(cursor.getColumnIndex(RssDBHelper.Site.URL))
 
             // 紐づくリンク情報の件数を取得する
             val linksCount = DatabaseUtils.queryNumEntries(database,
@@ -84,7 +84,7 @@ object RssRepository {
     fun insertLinks(context: Context, feedId: Long, links: List<Link>): Int {
         val database = RssDBHelper(context).readableDatabase
 
-        var insertedRows = 0
+        var insertedRows: Int = 0
 
         for (link in links) {
             val values = ContentValues()
@@ -120,12 +120,12 @@ object RssRepository {
             RssDBHelper.Link.PUB_DATE + " DESC", null)
 
         while (cursor.moveToNext()) {
-            val id = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Link.ID))
-            val title = cursor.getString(cursor.getColumnIndex(RssDBHelper.Link.TITLE))
-            val description = cursor.getString(cursor.getColumnIndex(RssDBHelper.Link.DESCRIPTION))
-            val pubDate = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Link.PUB_DATE))
-            val url = cursor.getString(cursor.getColumnIndex(RssDBHelper.Link.LINK_URL))
-            val siteId = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Link.SITE_ID))
+            val id: Long = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Link.ID))
+            val title: String = cursor.getString(cursor.getColumnIndex(RssDBHelper.Link.TITLE))
+            val description: String = cursor.getString(cursor.getColumnIndex(RssDBHelper.Link.DESCRIPTION))
+            val pubDate: Long = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Link.PUB_DATE))
+            val url: String = cursor.getString(cursor.getColumnIndex(RssDBHelper.Link.LINK_URL))
+            val siteId: Long = cursor.getLong(cursor.getColumnIndex(RssDBHelper.Link.SITE_ID))
 
             val link = Link(id, title, description, pubDate, url, siteId)
             links.add(link)
@@ -137,5 +137,4 @@ object RssRepository {
 
         return links
     }
-
 }

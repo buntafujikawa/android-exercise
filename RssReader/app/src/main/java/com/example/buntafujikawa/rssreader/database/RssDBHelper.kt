@@ -61,7 +61,6 @@ class RssDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, D
     }
 
     companion object {
-
         private const val DB_NAME: String = "RssDB"
         private const val DB_VERSION: Int = 1
     }
