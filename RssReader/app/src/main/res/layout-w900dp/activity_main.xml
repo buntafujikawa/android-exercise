@@ -7,19 +7,37 @@
     android:layout_height="match_parent"
     tools:context="com.example.buntafujikawa.rssreader.MainActivity">
 
-    <!-- main content -->
-    <FrameLayout
-        android:id="@+id/MasterContaienr"
+    <!-- main container -->
+    <LinearLayout
+        android:id="@+id/DualPaneContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:divider="@color/colorDivider"
+        android:baselineAligned="false">
 
-        <fragment
-            android:layout_width="match_parent"
+        <!-- master content -->
+        <FrameLayout
+            android:id="@+id/MasterContaienr"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.example.buntafujikawa.rssreader.LinkListFragment"
+                tools:layout="@layout/fragment_links"/>
+
+        </FrameLayout>
+
+        <!-- detail content -->
+        <FrameLayout
+            android:id="@+id/DetailContainer"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:name="com.example.buntafujikawa.rssreader.LinkListFragment"
-            tools:layout="@layout/fragment_links"/>
+            android:layout_weight="1"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <!-- drawer menu -->
     <FrameLayout
@@ -28,13 +46,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="?android:attr/colorBackground">
-
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:name="com.example.buntafujikawa.rssreader.SiteListFragment"
             tools:layout="@layout/fragment_sites"/>
-
     </FrameLayout>
 
 </android.support.v4.widget.DrawerLayout>
