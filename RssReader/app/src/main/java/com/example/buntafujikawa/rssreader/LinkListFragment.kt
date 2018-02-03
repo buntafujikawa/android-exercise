@@ -26,6 +26,7 @@ class LinkListFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Link>>, 
         private const val LOADER_LINKS: Int = 1
     }
 
+    // リストがタップされた時のリスナー
     interface LinkListFragmentListener {
         fun onLinkClicked(link: Link)
     }
@@ -42,7 +43,7 @@ class LinkListFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Link>>, 
     }
 
     // onCreateが完了した後に呼ばれる
-    override fun onActivityCreated(savedInstanceState: Bundle) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         loaderManager.initLoader(LOADER_LINKS, null, this)
@@ -55,7 +56,7 @@ class LinkListFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Link>>, 
         loaderManager.destroyLoader(LOADER_LINKS)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         val v: View = inflater.inflate(R.layout.fragment_links, container, false)
         val context: Context = inflater.context
@@ -75,7 +76,7 @@ class LinkListFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Link>>, 
     override fun onItemClick(link: Link) {
         // activityが取れない場合にnullになる??
         val listener: LinkListFragmentListener? = activity as LinkListFragmentListener
-        listener?.let { listener.onLinkClicked(link) }
+        listener?.let { it.onLinkClicked(link) }
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<Link>>? {

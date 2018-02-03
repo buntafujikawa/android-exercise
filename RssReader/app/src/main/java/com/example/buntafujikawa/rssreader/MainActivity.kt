@@ -99,12 +99,12 @@ class MainActivity : AppCompatActivity(), SiteListFragment.SiteListFragmentListe
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         // ドロワーのトグルの状態を同期する
-        mDrawerToggle?.let { mDrawerToggle.syncState() }
+        mDrawerToggle.syncState()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
-        mDrawerToggle?.let { mDrawerToggle.onConfigurationChanged(newConfig) }
+        mDrawerToggle.onConfigurationChanged(newConfig)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -129,12 +129,12 @@ class MainActivity : AppCompatActivity(), SiteListFragment.SiteListFragmentListe
     }
 
     override fun onSiteDeleted(siteId: Long) {
-        val fragment: LinkListFragment = fragmentManager.findFragmentById(R.id.MasterContaienr) as LinkListFragment
+        val fragment: LinkListFragment = fragmentManager.findFragmentById(R.id.MasterContainer) as LinkListFragment
         fragment.removeLinks(siteId)
     }
 
     override fun onSiteAdded() {
-        val fragment = fragmentManager.findFragmentById(R.id.MasterContaienr) as LinkListFragment
+        val fragment = fragmentManager.findFragmentById(R.id.MasterContainer) as LinkListFragment
         fragment.reload()
     }
 }

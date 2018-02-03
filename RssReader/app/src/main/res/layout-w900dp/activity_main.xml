@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/DrawerLayout"
     android:layout_width="match_parent"
@@ -12,21 +11,21 @@
         android:id="@+id/DualPaneContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:baselineAligned="false"
         android:divider="@color/colorDivider"
-        android:baselineAligned="false">
+        android:orientation="horizontal">
 
         <!-- master content -->
         <FrameLayout
-            android:id="@+id/MasterContaienr"
+            android:id="@+id/MasterContainer"
             android:layout_width="240dp"
             android:layout_height="match_parent">
 
             <fragment
+                android:name="com.example.buntafujikawa.rssreader.LinkListFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.example.buntafujikawa.rssreader.LinkListFragment"
-                tools:layout="@layout/fragment_links"/>
+                tools:layout="@layout/fragment_links" />
 
         </FrameLayout>
 
@@ -35,7 +34,7 @@
             android:id="@+id/DetailContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -46,11 +45,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="?android:attr/colorBackground">
+
         <fragment
+            android:name="com.example.buntafujikawa.rssreader.SiteListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.buntafujikawa.rssreader.SiteListFragment"
-            tools:layout="@layout/fragment_sites"/>
+            tools:layout="@layout/fragment_sites" />
     </FrameLayout>
 
 </android.support.v4.widget.DrawerLayout>

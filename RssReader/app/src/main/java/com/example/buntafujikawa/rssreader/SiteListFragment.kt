@@ -23,7 +23,7 @@ import com.example.buntafujikawa.rssreader.loader.SiteListLoader
 /**
  * RSS配信サイトの一覧を表示するFragment
  */
-class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterView.OnItemClickListener {
+class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, AdapterView.OnItemClickListener {
 
     companion object {
         private const val LOADER_LOAD_SITES: Int = 1
@@ -54,7 +54,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         // Loaderを初期化する
@@ -67,7 +67,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
         loaderManager.destroyLoader(LOADER_LOAD_SITES)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Viewを生成する
         val v = inflater.inflate(R.layout.fragment_sites, container, false)
         val context = inflater.context
@@ -139,30 +139,31 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
         }
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle): Loader<*>? {
+    // TODO 5
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<Any>? {
 
         when (id) {
             LOADER_LOAD_SITES -> {
                 // 登録済みのRSS配信サイトの一覧を取得する
-                val loader = SiteListLoader(activity)
+                val loader: SiteListLoader = SiteListLoader(activity)
                 loader.forceLoad()
-                return loader
+                return loader as Loader<Any>
             }
 
             LOADER_ADD_SITE -> {
                 // RSS配信サイトを登録する
-                val url = args.getString("url")
+                val url = args!!.getString("url")
                 val loader = AddSiteLoader(activity, url)
                 loader.forceLoad()
-                return loader
+                return loader as Loader<Any>
             }
 
             LOADER_DELETE_SITE -> {
                 // 登録済みのRSS配信サイトを削除する
-                val siteId = args.getLong("targetId")
+                val siteId = args!!.getLong("targetId")
                 val loader = DeleteSiteLoader(activity, siteId)
                 loader.forceLoad()
-                return loader
+                return loader as Loader<Any>
             }
 
             else -> return null
@@ -171,7 +172,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
 
     // Loaderの処理が終わった時に呼ばれる
     // TODO 引数の型を確認
-    override fun onLoadFinished(loader: Loader<*>, data: Any?) {
+    override fun onLoadFinished(loader: Loader<Any>, data: Any?) {
         val id = loader.id
 
         when (id) {
@@ -211,11 +212,6 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<*>, AdapterVi
         }
     }
 
-    override fun onLoadFinished(loader: Nothing, data: Nothing?) {
-
-    }
-
-    override fun onLoaderReset(loader: Nothing) {
-
+    override fun onLoaderReset(loader: Loader<Any>?) {
     }
 }
