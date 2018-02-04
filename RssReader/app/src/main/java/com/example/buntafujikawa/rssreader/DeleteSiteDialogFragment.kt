@@ -28,7 +28,7 @@ class DeleteSiteDialogFragment : DialogFragment() {
     }
 
     // ダイアログを表示する
-    override fun onCreateDialog(saveInstanceState: Bundle): Dialog {
+    override fun onCreateDialog(saveInstanceState: Bundle?): Dialog {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
 
         // 表示するダイアログの設定

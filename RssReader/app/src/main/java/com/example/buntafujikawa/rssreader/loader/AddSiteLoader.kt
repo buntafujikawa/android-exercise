@@ -34,7 +34,7 @@ class AddSiteLoader(context: Context, private var url: String) : AsyncTaskLoader
         val links: List<Link> = parser.getLinkList()
 
         site.url = this.url
-        site.linkCount = links.size as Long
+        site.linkCount = links.size.toLong()
 
         // サイトを登録
         val feedId: Long = RssRepository.insertSite(context, site)

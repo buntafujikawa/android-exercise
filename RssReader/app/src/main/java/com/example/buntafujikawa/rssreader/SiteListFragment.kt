@@ -101,7 +101,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
         dialog.show(fragmentManager, TAG_DIALOG_FRAGMENT)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         // キャンセルされた場合などは何も行わない
         if (resultCode != Activity.RESULT_OK) return
@@ -110,7 +110,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
         when (requestCode) {
             REQUEST_ADD_SITE -> {
                 // RSS配信サイトを追加するLoaderを呼ぶ
-                val url = data.getStringExtra("url")
+                val url = data!!.getStringExtra("url")
                 val args = Bundle()
                 args.putString("url", url)
 
@@ -125,7 +125,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
 
             REQUEST_DELETE_CONFIRM -> {
                 // 配信サイトを登録削除するLoaderを呼ぶ
-                val targetFeedId = data.getLongExtra("site_id", -1L)
+                val targetFeedId = data!!.getLongExtra("site_id", -1L)
                 val args = Bundle()
                 args.putLong("targetId", targetFeedId)
 
@@ -139,7 +139,6 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
         }
     }
 
-    // TODO 5
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Any>? {
 
         when (id) {
@@ -171,7 +170,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
     }
 
     // Loaderの処理が終わった時に呼ばれる
-    // TODO 引数の型を確認
+    // TODO 引数の確認、dataがnullになっているので登録できていない
     override fun onLoadFinished(loader: Loader<Any>, data: Any?) {
         val id = loader.id
 

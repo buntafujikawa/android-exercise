@@ -15,6 +15,7 @@ import javax.xml.xpath.XPath
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathExpressionException
 import javax.xml.xpath.XPathFactory
+import kotlin.collections.ArrayList
 
 /**
  * RSS2用のパーサ
@@ -34,6 +35,8 @@ class Rss2Parser : FeedParser {
 
             // TODO デフォルト引数を設定したそれで問題がないかをもう少し進んだら確認をする
             this.site = Site(title = siteTitle, description = siteDescription)
+
+            this.links = ArrayList<Link>()
 
             // ドキュメント内の<item>要素を全て取り出す
             val items: NodeList = xPath.evaluate("//item", document, XPathConstants.NODESET) as NodeList

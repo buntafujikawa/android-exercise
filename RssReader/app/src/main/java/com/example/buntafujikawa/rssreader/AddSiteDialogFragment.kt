@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import kotlinx.android.synthetic.main.dialog_input_url.view.*
 
 /**
  * URL入力用のFragment
@@ -30,14 +31,14 @@ class AddSiteDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val context: Context = activity
 
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val contentView: View = inflater.inflate(R.layout.dialog_input_url, null)
 
-        mEditText = contentView.findViewById(R.id.URLEditText) as EditText
+        mEditText = contentView.URLEditText as EditText
 
         // ダイアログ生成用のビルダー
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -45,6 +46,7 @@ class AddSiteDialogFragment : DialogFragment() {
             .setView(contentView)
             .setPositiveButton(R.string.dialog_button_add, // 「はい」ボタン
                 DialogInterface.OnClickListener() { dialog, id ->
+
                     val fragment: Fragment? = targetFragment
 
                     fragment?.let {
