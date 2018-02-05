@@ -1,6 +1,7 @@
 package com.example.buntafujikawa.rssreader.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class SiteAdapter(context: Context) : BaseAdapter() {
             val site: Site = mSites[i]
 
             if (siteId == site.id) {
+                // FIXME 削除時にここで落ちる
                 mSites.removeAt(position)
                 notifyDataSetChanged()
                 return

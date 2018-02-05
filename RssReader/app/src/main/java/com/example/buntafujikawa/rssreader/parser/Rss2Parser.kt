@@ -23,7 +23,8 @@ import kotlin.collections.ArrayList
 class Rss2Parser : FeedParser {
 
     private lateinit var site: Site
-    private lateinit var links: List<Link>
+
+    private lateinit var links: MutableList<Link>
 
     override fun parse(document: Document): Boolean {
         val factory: XPathFactory = XPathFactory.newInstance()
@@ -58,6 +59,8 @@ class Rss2Parser : FeedParser {
 
                 // TODO デフォルト引数を設定したそれで問題がないかをもう少し進んだら確認をする
                 val link: Link = Link(title =  linkTitle, description = linkDescription, pubDate = linkPubDate, url = linkUrl)
+
+                this.links.add(link)
             }
 
             return true

@@ -112,6 +112,7 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
                 // RSS配信サイトを追加するLoaderを呼ぶ
                 val url = data!!.getStringExtra("url")
                 val args = Bundle()
+
                 args.putString("url", url)
 
                 // すでに初期化済みの場合は再スタート、そうでない場合は初期化
@@ -170,7 +171,6 @@ class SiteListFragment : Fragment(), LoaderManager.LoaderCallbacks<Any>, Adapter
     }
 
     // Loaderの処理が終わった時に呼ばれる
-    // TODO 引数の確認、dataがnullになっているので登録できていない
     override fun onLoadFinished(loader: Loader<Any>, data: Any?) {
         val id = loader.id
 

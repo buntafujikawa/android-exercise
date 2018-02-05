@@ -23,7 +23,7 @@ class HttpGet(private var url: String) {
         try {
             val url: URL = URL(this.url)
 
-            var connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connectTimeout = CONNECT_TIMEOUT_MS
             connection.readTimeout = READ_TIMEOUT_MS
@@ -32,7 +32,7 @@ class HttpGet(private var url: String) {
             connection.connect()
 
             status = connection.responseCode
-            if (status == 200) {
+            if (status!! >= 200 && status!! < 300) {
                 input = BufferedInputStream(connection.inputStream)
                 return true
             }
