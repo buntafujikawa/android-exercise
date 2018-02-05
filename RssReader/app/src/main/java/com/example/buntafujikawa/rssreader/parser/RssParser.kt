@@ -63,15 +63,19 @@ class RssParser {
         val children: NodeList = document.childNodes
         var parser: FeedParser? = null
 
-        for (i in 0 until children.length) {
-            var childName: String = children.item(i).nodeName
-
-            parser = when {
-                childName.equals("rdf:RDF") -> { Rss1Parser() }
-                childName.equals("rss") -> { Rss2Parser() }
-                else -> null
+        (0 until children.length)
+            .map { children.item(it).nodeName }
+            .forEach {
+                parser = when {
+                    it.equals("rdf:RDF") -> {
+                        Rss1Parser()
+                    }
+                    it.equals("rss") -> {
+                        Rss2Parser()
+                    }
+                    else -> null
+                }
             }
-        }
 
         return parser
     }

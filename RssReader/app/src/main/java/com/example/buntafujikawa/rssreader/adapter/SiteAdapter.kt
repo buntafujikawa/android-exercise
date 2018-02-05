@@ -31,15 +31,11 @@ class SiteAdapter(context: Context) : BaseAdapter() {
     }
 
     fun removeItem(siteId: Long) {
-        val size: Int = mSites.size
-        val position: Int = -1
-
-        for (i in 0 until size) {
-            val site: Site = mSites[i]
+        for (i in 0 until mSites.size) {
+            val site = mSites[i]
 
             if (siteId == site.id) {
-                // FIXME 削除時にここで落ちる
-                mSites.removeAt(position)
+                mSites.removeAt(i)
                 notifyDataSetChanged()
                 return
             }

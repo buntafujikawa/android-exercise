@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <fragment
+            android:id="@+id/LinkList"
             android:name="com.example.buntafujikawa.rssreader.LinkListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,6 +30,7 @@
         android:background="?android:attr/colorBackground">
 
         <fragment
+            android:id="@+id/SiteList"
             android:name="com.example.buntafujikawa.rssreader.SiteListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

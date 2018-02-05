@@ -129,12 +129,12 @@ class MainActivity : AppCompatActivity(), SiteListFragment.SiteListFragmentListe
     }
 
     override fun onSiteDeleted(siteId: Long) {
-        val fragment: LinkListFragment = fragmentManager.findFragmentById(R.id.MasterContainer) as LinkListFragment
+        val fragment: LinkListFragment = fragmentManager.findFragmentById(R.id.LinkList) as LinkListFragment
         fragment.removeLinks(siteId)
     }
 
     override fun onSiteAdded() {
-        val fragment = fragmentManager.findFragmentById(R.id.MasterContainer) as LinkListFragment
+        val fragment: LinkListFragment = fragmentManager.findFragmentById(R.id.LinkList) as LinkListFragment
         fragment.reload()
     }
 }
