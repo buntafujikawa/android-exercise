@@ -32,7 +32,6 @@ class Rss1Parser : FeedParser {
             val siteTitle: String = xPath.evaluate("//channel/title/text()", document)
             val siteDescription: String = xPath.evaluate("//channel/description/text()", document)
 
-            // TODO デフォルト引数を設定したそれで問題がないかをもう少し進んだら確認をする
             this.site = Site(title = siteTitle, description = siteDescription)
 
             // ドキュメント内の<item>要素を全て取り出す
@@ -53,7 +52,6 @@ class Rss1Parser : FeedParser {
 
                 val linkUrl: String = xPath.evaluate("./link/text()", item)
 
-                // TODO デフォルト引数を設定したそれで問題がないかをもう少し進んだら確認をする
                 val link: Link = Link(title =  linkTitle, description = linkDescription, pubDate = linkPubDate, url = linkUrl)
             }
 

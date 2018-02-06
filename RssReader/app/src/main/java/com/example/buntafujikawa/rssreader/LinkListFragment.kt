@@ -75,8 +75,8 @@ class LinkListFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Link>>, 
     // リストアイテムがタップされた時のイベント
     override fun onItemClick(link: Link) {
         // activityが取れない場合にnullになる??
-        val listener: LinkListFragmentListener? = activity as LinkListFragmentListener
-        listener?.let { it.onLinkClicked(link) }
+        val listener: LinkListFragmentListener = activity as LinkListFragmentListener
+        listener.onLinkClicked(link)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<Link>>? {

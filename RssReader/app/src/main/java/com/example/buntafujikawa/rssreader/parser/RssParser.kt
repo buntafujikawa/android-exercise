@@ -2,11 +2,14 @@ package com.example.buntafujikawa.rssreader.parser
 
 import com.example.buntafujikawa.rssreader.data.Link
 import com.example.buntafujikawa.rssreader.data.Site
+
 import org.w3c.dom.Document
 import org.w3c.dom.NodeList
 import org.xml.sax.SAXException
+
 import java.io.IOException
 import java.io.InputStream
+
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.parsers.ParserConfigurationException

@@ -85,12 +85,15 @@ class LinkAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
     internal class LinkViewHolder(itemView: View, adapter: LinkAdapter) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        override fun onClick(v: View?) {}
-
-        val adapter: LinkAdapter = adapter
+        private val adapter: LinkAdapter = adapter
         val title: TextView = itemView.Title as TextView
         val description: TextView = itemView.Description as TextView
         val timeAgo: TextView = itemView.TimeAgo as TextView
+
+        override fun onClick(v: View?) {
+            val data: Link = adapter.mLinks[layoutPosition]
+            adapter.mListener.onItemClick(data)
+        }
 
         init {
             itemView.setOnClickListener(this)

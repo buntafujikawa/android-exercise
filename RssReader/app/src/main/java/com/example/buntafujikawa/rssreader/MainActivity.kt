@@ -114,9 +114,11 @@ class MainActivity : AppCompatActivity(), SiteListFragment.SiteListFragmentListe
 
     override fun onLinkClicked(link: Link) {
         if (mIsDualPane) {
+            // 横幅が広い場合には、WebViewFragmentをDetailにいれる
             val fragment: WebPageFragment = WebPageFragment.newInstance(link.url)
             fragmentManager.beginTransaction().replace(R.id.DetailContainer, fragment).commit()
         } else {
+            // 横幅が狭い場合には、Chrome Custom Tabsを使用する
             val colorPrimary: Int = ContextCompat.getColor(this, R.color.colorPrimary)
             val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
 
